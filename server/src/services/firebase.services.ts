@@ -23,11 +23,15 @@ class FirebaseServices {
 	}
 
 	public async getDocs(collectionName: string) {
-		const booksRef = collection(fireStore, collectionName);
-		const q = query(booksRef);
-		const querySnapshot = await getDocs(booksRef);
-		let bookList = this.cleanFirestoreResponse(querySnapshot);
-		return bookList;
+		try {
+			const booksRef = collection(fireStore, collectionName);
+			const q = query(booksRef);
+			const querySnapshot = await getDocs(booksRef);
+			let bookList = this.cleanFirestoreResponse(querySnapshot);
+			return bookList;
+		} catch (error) {
+			throw new HttpException(1002, "Unable to fetch requested data");
+		}
 	}
 
 	/*
@@ -37,11 +41,15 @@ class FirebaseServices {
 	private cleanFirestoreResponse(
 		querySnapshot: QuerySnapshot<DocumentData, DocumentData>
 	) {
-		let cleanedResponse: Array<any> = [];
-		querySnapshot.docs.forEach((doc) => {
-			cleanedResponse.push({ id: doc.id, ...doc.data() });
-		});
-		return cleanedResponse;
+		try {
+			let cleanedResponse: Array<any> = [];
+			querySnapshot.docs.forEach((doc) => {
+				cleanedResponse.push({ id: doc.id, ...doc.data() });
+			});
+			return cleanedResponse;
+		} catch (error) {
+			throw new HttpException(1003, "Exception occured while cleaning data");
+		}
 	}
 
 	//.TODO Create a method to fetch cover page of the book i.e first in list
