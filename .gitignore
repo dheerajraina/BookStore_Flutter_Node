@@ -1,5 +1,5 @@
 server/node_modules
-server/package-lock.json
+.server/package-lock.json
 .vscode
 .DS_store
 .env
