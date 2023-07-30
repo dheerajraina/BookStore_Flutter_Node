@@ -28,4 +28,11 @@ describe("Firestore Services", () => {
 		);
 		expect(result).resolves;
 	}, 10000);
+
+	it("get file url", async () => {
+		const result = await firestoreServices.generateFileUrl(
+			"8u394u93jcnjriw/DSA_Book_page-0002.jpg"
+		);
+		expect(result).resolves;
+	}, 10000);
 });
