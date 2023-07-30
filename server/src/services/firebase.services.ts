@@ -40,23 +40,32 @@ class FirebaseServices {
 		folderName: string,
 		limit: number,
 		nextPageToken?: string
-	): Promise<ListResult> {
+	) {
 		try {
 			const pathReference = ref(firebaseStorage, folderName);
 			const files = await list(pathReference, {
 				maxResults: limit,
 				pageToken: nextPageToken,
 			});
-			return files;
+			const response = this.cleanFirebaseStorageResponse(files);
+			return response;
 		} catch (error) {
 			throw new HttpException(1004, "Unable to fetch requested data");
 		}
 	}
 
 	/*
-		TODO: Write a utility that extracts the list file paths and next page token from the
+		utility that extracts the list file paths and next page token from the
 		response of getFilesInsideFolder function
 	*/
+	private cleanFirebaseStorageResponse(files: ListResult) {
+		let extractedFilePaths = files.items.map((item) => item.fullPath);
+		const result = {
+			items: extractedFilePaths,
+			nextPageToken: files.nextPageToken,
+		};
+		return result;
+	}
 
 	// TODO: Write a function that generates url file
 
