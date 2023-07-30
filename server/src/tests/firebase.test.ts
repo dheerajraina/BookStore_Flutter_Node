@@ -20,4 +20,12 @@ describe("Firestore Services", () => {
 		const result = await firestoreServices.getDocs("book");
 		expect(result).resolves;
 	}, 10000);
+
+	it("get files inside folder", async () => {
+		const result = await firestoreServices.getFilesInsideStorageFolder(
+			"8u394u93jcnjriw",
+			1
+		);
+		expect(result).resolves;
+	}, 10000);
 });
