@@ -6,7 +6,7 @@ import {
 	QuerySnapshot,
 	DocumentData,
 } from "firebase/firestore";
-import { ref, list, ListResult } from "firebase/storage";
+import { ref, list, ListResult, getDownloadURL } from "firebase/storage";
 import firebaseStorage from "../databases/firebaseStorage";
 import fireStore from "../databases/firestore";
 import BookInterface from "../interfaces/book.interface";
@@ -67,7 +67,16 @@ class FirebaseServices {
 		return result;
 	}
 
-	// TODO: Write a function that generates url file
+	// TODO: make below function to generate a signed url , for now its fine
+	public async generateFileUrl(filePath: string): Promise<string> {
+		try {
+			const pathReference = ref(firebaseStorage, filePath);
+			const generatedUrl = await getDownloadURL(pathReference);
+			return generatedUrl;
+		} catch (error) {
+			throw new HttpException(1005, "Unable to fetch requested file");
+		}
+	}
 
 	/*
 	 since firestore response comes in with a lot of meta deta, so this function just helps us to
