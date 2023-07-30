@@ -6,6 +6,5 @@ export class FirestoreBookInterface {
 		reference: string;
 		genre: string;
 		author: string;
-		test: string;
 	};
 }
