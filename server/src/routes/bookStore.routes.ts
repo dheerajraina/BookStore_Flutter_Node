@@ -13,6 +13,7 @@ class BookStoreRoutes implements Route {
 
 	private initializeRoutes() {
 		this.router.get(`${this.path}/books`, this.bookStoreController.getBookList);
+		this.router.get(`${this.path}/book-cover/:reference`,this.bookStoreController.getBookCover)
 	}
 }
 
