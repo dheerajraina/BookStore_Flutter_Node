@@ -1,5 +1,8 @@
+import 'dart:developer';
+
 import 'package:bookstore_flutter_node/controllers/homepage_controller.dart';
 import 'package:bookstore_flutter_node/models/models.dart';
+import 'package:bookstore_flutter_node/pages/bookContentPage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -19,9 +22,10 @@ class BooksHorizontalDisplayList extends StatelessWidget {
       child: Obx(() => ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: _homePageController.bookList.length*10,
+          itemCount: _homePageController.bookList.length * 10,
           itemBuilder: (context, index) {
-            BookModel book =_homePageController.bookList.value[0];
+            BookModel book = _homePageController.bookList.value[0];
+            var bookCover = book.data.coverUrl.replaceAll('"', '');
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ConstrainedBox(
@@ -32,10 +36,19 @@ class BooksHorizontalDisplayList extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      width: 200,
-                      height: 210,
-                      color: Colors.grey,
+                    InkWell(
+                      onTap: () => Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => BookContentPage(book: book))),
+                      child: Container(
+                        width: 200,
+                        height: 210,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(width: 1, style: BorderStyle.solid),
+                          color: Colors.white,
+                        ),
+                        child: Image.network(bookCover!, fit: BoxFit.contain),
+                      ),
                     ),
                     Container(
                       width: 200,
