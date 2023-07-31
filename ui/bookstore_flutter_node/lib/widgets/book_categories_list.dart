@@ -3,9 +3,7 @@ import 'package:bookstore_flutter_node/config/config.dart';
 import 'widgets.dart';
 
 class BookCategories extends StatelessWidget {
-  const BookCategories({super.key,required this.bookList});
-  final bookList;
-
+  const BookCategories({super.key});
   @override
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height;
@@ -29,7 +27,7 @@ class BookCategories extends StatelessWidget {
                       style: basicBoldTextStyle(context),
                     ),
                   ),
-                  BooksHorizontalDisplayList(booksList: [])
+                  BooksHorizontalDisplayList()
                 ],
               );
             }),
