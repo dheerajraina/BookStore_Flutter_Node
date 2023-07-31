@@ -14,14 +14,27 @@ class BookStoreController {
 	};
 	public getBookCover = async (req: Request, res: Response) => {
 		try {
-			const bookReference =req.params.reference;
-			const bookCover = await this.bookStoreServices.getBookCover(bookReference);
+			const bookReference = req.params.reference;
+			const bookCover = await this.bookStoreServices.getBookCover(
+				bookReference
+			);
 			res.status(200).json(bookCover);
 		} catch (error) {
 			res.status(error.status).json({ message: error.message });
 		}
 	};
+	public getBookContent = async (req: Request, res: Response) => {
+		try {
+			const bookReference = req.params.reference;
+			const bookContent = await this.bookStoreServices.getBookContent(
+				bookReference,
+				15
+			);
+			res.status(200).json(bookContent);
+		} catch (error) {
+			res.status(error.status).json({ message: error.message });
+		}
+	};
 }
-
 
 export default BookStoreController;
