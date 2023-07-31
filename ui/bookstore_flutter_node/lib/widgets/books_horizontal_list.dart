@@ -1,8 +1,12 @@
+import 'package:bookstore_flutter_node/controllers/homepage_controller.dart';
+import 'package:bookstore_flutter_node/models/models.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class BooksHorizontalDisplayList extends StatelessWidget {
-  final List booksList;
-  BooksHorizontalDisplayList({super.key, required this.booksList});
+  final _homePageController = Get.find<HomePageController>();
+
+  BooksHorizontalDisplayList({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,18 +16,19 @@ class BooksHorizontalDisplayList extends StatelessWidget {
     return SizedBox(
       width: screenWidth,
       height: screenHeight * 0.4,
-      child: ListView.builder(
+      child: Obx(() => ListView.builder(
           scrollDirection: Axis.horizontal,
           shrinkWrap: true,
-          itemCount: 10,
+          itemCount: _homePageController.bookList.length*10,
           itemBuilder: (context, index) {
+            BookModel book =_homePageController.bookList.value[0];
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: ConstrainedBox(
-              constraints: BoxConstraints(
-                minHeight: 100,
-                minWidth: 200,
-              ),
+                constraints: BoxConstraints(
+                  minHeight: 100,
+                  minWidth: 200,
+                ),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: <Widget>[
@@ -35,13 +40,14 @@ class BooksHorizontalDisplayList extends StatelessWidget {
                     Container(
                       width: 200,
                       height: 60,
-                      color: Colors.pink[100],
+                      color: Colors.white,
+                      child: Text(book.data.title),
                     )
                   ],
                 ),
               ),
             );
-          }),
+          })),
     );
   }
 }

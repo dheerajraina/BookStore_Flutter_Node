@@ -23,9 +23,7 @@ class HomeMobileBody extends StatelessWidget {
             ),
           ),
           Divider(thickness: 1),
-          BookCategories(
-            bookList: [],
-          ),
+          BookCategories(),
         ],
       ),
     );
