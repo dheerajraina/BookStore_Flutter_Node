@@ -26,13 +26,15 @@ class BookData {
   String author;
   String reference;
   String title;
+  String coverUrl;
 
   BookData(
       {required this.pages,
       required this.genre,
       required this.author,
       required this.reference,
-      required this.title});
+      required this.title,
+      this.coverUrl =" "});
 
   factory BookData.fromJson(Map<String, dynamic> json) => BookData(
         pages: json['pages'],
