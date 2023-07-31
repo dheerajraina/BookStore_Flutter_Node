@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:bookstore_flutter_node/responsive/responsive..dart';
+import 'package:bookstore_flutter_node/responsive/responsive.dart';
 
 class HomePage extends StatelessWidget {
   @override
