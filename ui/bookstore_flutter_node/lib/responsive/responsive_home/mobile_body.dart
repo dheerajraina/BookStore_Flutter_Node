@@ -23,9 +23,9 @@ class HomeMobileBody extends StatelessWidget {
             ),
           ),
           Divider(thickness: 1),
-          // kVerticalSpacer(10),
-          // BooksHorizontalDisplayList(booksList: [])
-          BookCategories(bookList: [],),
+          BookCategories(
+            bookList: [],
+          ),
         ],
       ),
     );
