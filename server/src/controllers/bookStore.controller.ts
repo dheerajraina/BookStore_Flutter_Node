@@ -12,6 +12,15 @@ class BookStoreController {
 			res.status(error.status).json({ message: error.message });
 		}
 	};
+	public getBookCover = async (req: Request, res: Response) => {
+		try {
+			const bookReference =req.params.reference;
+			const bookCover = await this.bookStoreServices.getBookCover(bookReference);
+			res.status(200).json(bookCover);
+		} catch (error) {
+			res.status(error.status).json({ message: error.message });
+		}
+	};
 }
 
 
