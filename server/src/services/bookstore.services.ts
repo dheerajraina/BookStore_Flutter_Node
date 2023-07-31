@@ -16,6 +16,28 @@ class BookStoreServices {
 		);
 		return bookCoverUrl;
 	}
+	public async getBookContent(
+		bookReference: string,
+		limit?: number,
+		nextPageToken?: string
+	) {
+		const bookContent = await this.firebaseServices.getFilesInsideStorageFolder(
+			bookReference,
+			limit,
+			nextPageToken
+		);
+		bookContent.items = await this.getUrls(bookContent.items);
+		return bookContent;
+	}
+	private async getUrls(pageReferences: Array<string>) {
+		for (let i = 0; i < pageReferences.length; i++) {
+			const pageUrl = await this.firebaseServices.generateFileUrl(
+				pageReferences[i]
+			);
+			pageReferences[i] = pageUrl;
+		}
+		return pageReferences;
+	}
 }
 
 export default BookStoreServices;
